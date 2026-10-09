@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Guangzhou 3-Day Trip</title>
+<!-- html2pdf.js library for PDF generation -->
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;color:#17202a;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;color:#17202a}
 header{background:#17202a;color:white;padding:22px 16px;text-align:center}
 header h1{margin:0 0 6px;font-size:25px} header p{margin:0;color:#d9e1e8}
 .wrap{max-width:900px;margin:auto;padding:14px}
@@ -42,23 +43,25 @@ input[name=daytab]{display:none}
 .total{font-size:20px;font-weight:bold;margin-top:10px}
 .small{font-size:12px;color:#6b747d}
 /* Modal & Photo Styling */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:9999;padding:15px;overflow:auto;-webkit-overflow-scrolling:touch}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:9999;padding:15px;overflow:auto}
 .modal.active{display:flex;align-items:center;justify-content:center}
-.modalbox{background:white;max-width:620px;width:100%;max-height:95vh;overflow:auto;border-radius:16px;padding:20px;position:relative;-webkit-overflow-scrolling:touch}
-.close-btn{float:right;background:#eef1f4;color:#17202a;padding:10px 16px;border-radius:8px;font-weight:bold;border:0;cursor:pointer;font-size:16px}
+.modalbox{background:white;max-width:620px;width:100%;max-height:95vh;overflow:auto;border-radius:16px;padding:20px;position:relative}
+.close-btn{float:right;background:#eef1f4;color:#17202a;padding:7px 12px;border-radius:8px;font-weight:bold;border:0;cursor:pointer}
 .modalbox h2{margin:5px 0 10px}.modalbox li{margin:6px 0}
 .modal-img{width:100%;height:250px;object-fit:cover;border-radius:12px;margin-bottom:12px}
 .modal-tip-box{background:#f0f7ff;border-left:4px solid #3498db;padding:12px;border-radius:8px;font-size:13px;margin:12px 0}
 .modal-tip-box h4{margin:0 0 6px;color:#2980b9;font-size:14px}
 .modal-notes-area{width:100%;height:220px;padding:12px;border:1px solid #ccd3da;border-radius:8px;font-family:inherit;font-size:15px;margin-top:6px;resize:vertical}
 .btn-group{display:flex;gap:10px;margin-top:12px}
-.action-btn{flex:1;padding:14px;border:0;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;pointer-events:auto;touch-action:manipulation}
+.action-btn{flex:1;padding:14px;border:0;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px}
 .csv-btn{background:#27ae60;color:white}
 .clear-btn{background:#e74c3c;color:white}
+.pdf-btn-container{margin-top:20px;text-align:center}
+.pdf-btn{background:#17202a;color:white;border:0;padding:16px 20px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;width:100%;max-width:400px}
 footer{text-align:center;color:#68737d;font-size:12px;padding:25px}
-button,a,input,select,label{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 button:disabled{opacity:.65;cursor:wait}
-@media(max-width:600px){.tabs label{font-size:14px}.btn-group{flex-direction:column}.modal-img{height:180px}.card-thumb{width:65px;height:55px}.action-btn,.add-tour-btn{min-height:48px}}
+@media(max-width:600px){.tabs label{font-size:14px}.btn-group{flex-direction:column}.modal-img{height:180px}.card-thumb{width:65px;height:55px}.action-btn,.pdf-btn,.add-tour-btn{min-height:48px}}
 </style>
 </head>
 <body id="top">
@@ -67,6 +70,7 @@ button:disabled{opacity:.65;cursor:wait}
 <h1>Guangzhou — 3 Day Trip</h1>
 <p>HOTEL-TOP tour xiangtu wanyu (tianzi wharf, beijing road, 1st floor tower b, yanguangcheng jiangwan yihao, No. 298 middle road,Yuexiu District ,Guangzhou, Guangdong)</p>
 </header>
+<div id="syncStatus" role="status" style="margin:12px auto;padding:9px 12px;max-width:900px;border-radius:8px;background:#fff8df;color:#674d00;font-size:14px;text-align:center">Connecting to shared trip…</div>
 <main class="wrap">
 <input id="tab1" type="radio" name="daytab" checked>
 <input id="tab2" type="radio" name="daytab">
@@ -91,14 +95,14 @@ button:disabled{opacity:.65;cursor:wait}
 <section id="day1" class="panel">
 <div class="dayhead"><h2>Day 1 — Old Guangzhou</h2><div class="route">08:00 hotel → 08:30–10:00 Yuexiu → 10:10–11:30 Nanyue King → 12:00 Liurong → 12:30 lunch → 13:30 Chen Clan → 15:30 Yongqing/Liwan → 17:30 Shangxiajiu → 19:00 Shamian/dinner</div></div>
 <div id="day1-custom-container"></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_1" type="checkbox"><img class="card-thumb" src="1.jpg" alt="Yuexiu Park"><div><a class="place" onclick="openModal('yuexiu')">1. Yuexiu Park 🖼️</a><div class="meta">Start early. Visit the famous Five Rams Sculpture and Zhenhai Tower.<br><span class="badge">Transport: Taxi/Didi or Metro</span><span class="badge">Open 06:00–22:00</span><span class="badge">Time: 1–1.5 h</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_2" type="checkbox"><img class="card-thumb" src="2.jpg" alt="Nanyue King Museum"><div><a class="place" onclick="openModal('nanyue')">2. Nanyue King Museum 🖼️</a><div class="meta">Built over the original 2,000-year-old tomb with exquisite jade artifacts.<br><span class="badge">Transport: Walk / short taxi</span><span class="badge">Allow: 1–1.5 h</span><span class="badge">Ticket: ~¥10</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_3" type="checkbox"><img class="card-thumb" src="3.jpg" alt="Temple of the Six Banyan Trees"><div><a class="place" onclick="openModal('liurong')">3. Temple of the Six Banyan Trees 🖼️</a><div class="meta">Famous ancient Buddhist temple featuring the colorful Flower Pagoda.<br><span class="badge">Transport: Metro/taxi</span><span class="badge">Visit: 30–45 min</span><span class="badge">Ticket: ~¥5</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_4" type="checkbox"><img class="card-thumb" src="4.jpg" alt="Chen Clan Ancestral Hall"><div><a class="place" onclick="openModal('chen')">4. Chen Clan Ancestral Hall 🖼️</a><div class="meta">Guangdong Folk Art Museum — magnificent Lingnan wood & roof carvings.<br><span class="badge">Transport: Metro Line 1/8</span><span class="badge">09:00–17:30</span><span class="badge">Adult ¥10</span><span class="badge">Allow: 1.5–2 h</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_5" type="checkbox"><img class="card-thumb" src="5.jpg" alt="Yongqing Fang"><div><a class="place" onclick="openModal('yongqing')">5. Yongqing Fang + Liwan Old Town 🖼️</a><div class="meta">Historic revitalized Cantonese alleys, canals, Bruce Lee home, and cafes.<br><span class="badge">Transport: Walk/Metro</span><span class="badge">Free</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_6" type="checkbox"><img class="card-thumb" src="6.jpg" alt="Pantang Ancient Village"><div><a class="place" onclick="openModal('pantang')">6. Pantang Ancient Village 🖼️</a><div class="meta">Traditional Lingnan water village adjacent to Liwan Lake Park.<br><span class="badge">Transport: Walk/Metro</span><span class="badge">Free</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_7" type="checkbox"><img class="card-thumb" src="7.jpg" alt="Shangxiajiu Pedestrian Street"><div><a class="place" onclick="openModal('shangxiajiu')">7. Shangxiajiu Pedestrian Street 🖼️</a><div class="meta">Classic Qilou arcade buildings, famous dim sum houses, and shopping.<br><span class="badge">Transport: Walk</span><span class="badge">Free</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day1_8" type="checkbox"><img class="card-thumb" src="8.jpg" alt="Shamian Island"><div><a class="place" onclick="openModal('shamian')">8. Shamian Island 🖼️</a><div class="meta">Tranquil European colonial architecture and banyan tree-lined avenues.<br><span class="badge">Transport: Walk/Metro</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_1" type="checkbox"><img class="card-thumb" src="images/1.jpg" alt="Yuexiu Park"><div><a class="place" onclick="openModal('yuexiu')">1. Yuexiu Park 🖼️</a><div class="meta">Start early. Visit the famous Five Rams Sculpture and Zhenhai Tower.<br><span class="badge">Transport: Taxi/Didi or Metro</span><span class="badge">Open 06:00–22:00</span><span class="badge">Time: 1–1.5 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_2" type="checkbox"><img class="card-thumb" src="images/2.jpg" alt="Nanyue King Museum"><div><a class="place" onclick="openModal('nanyue')">2. Nanyue King Museum 🖼️</a><div class="meta">Built over the original 2,000-year-old tomb with exquisite jade artifacts.<br><span class="badge">Transport: Walk / short taxi</span><span class="badge">Allow: 1–1.5 h</span><span class="badge">Ticket: ~¥10</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_3" type="checkbox"><img class="card-thumb" src="images/3.jpg" alt="Temple of the Six Banyan Trees"><div><a class="place" onclick="openModal('liurong')">3. Temple of the Six Banyan Trees 🖼️</a><div class="meta">Famous ancient Buddhist temple featuring the colorful Flower Pagoda.<br><span class="badge">Transport: Metro/taxi</span><span class="badge">Visit: 30–45 min</span><span class="badge">Ticket: ~¥5</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_4" type="checkbox"><img class="card-thumb" src="images/4.jpg" alt="Chen Clan Ancestral Hall"><div><a class="place" onclick="openModal('chen')">4. Chen Clan Ancestral Hall 🖼️</a><div class="meta">Guangdong Folk Art Museum — magnificent Lingnan wood & roof carvings.<br><span class="badge">Transport: Metro Line 1/8</span><span class="badge">09:00–17:30</span><span class="badge">Adult ¥10</span><span class="badge">Allow: 1.5–2 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_5" type="checkbox"><img class="card-thumb" src="images/5.jpg" alt="Yongqing Fang"><div><a class="place" onclick="openModal('yongqing')">5. Yongqing Fang + Liwan Old Town 🖼️</a><div class="meta">Historic revitalized Cantonese alleys, canals, Bruce Lee home, and cafes.<br><span class="badge">Transport: Walk/Metro</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_6" type="checkbox"><img class="card-thumb" src="images/6.jpg" alt="Pantang Ancient Village"><div><a class="place" onclick="openModal('pantang')">6. Pantang Ancient Village 🖼️</a><div class="meta">Traditional Lingnan water village adjacent to Liwan Lake Park.<br><span class="badge">Transport: Walk/Metro</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_7" type="checkbox"><img class="card-thumb" src="images/7.jpg" alt="Shangxiajiu Pedestrian Street"><div><a class="place" onclick="openModal('shangxiajiu')">7. Shangxiajiu Pedestrian Street 🖼️</a><div class="meta">Classic Qilou arcade buildings, famous dim sum houses, and shopping.<br><span class="badge">Transport: Walk</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day1_8" type="checkbox"><img class="card-thumb" src="images/8.jpg" alt="Shamian Island"><div><a class="place" onclick="openModal('shamian')">8. Shamian Island 🖼️</a><div class="meta">Tranquil European colonial architecture and banyan tree-lined avenues.<br><span class="badge">Transport: Walk/Metro</span><span class="badge">Free</span></div></div></div></div>
 <div class="lunch-card">
 <h4>🍽️ Day 1 Lunch Recommendation (Old Guangzhou)</h4>
 <ul><li><b>Recommended Spot:</b> <b>Panxi Restaurant (泮溪酒家)</b> near Liwan Lake or <b>Tao Tao Ju (陶陶居)</b>.</li><li><b>What to try:</b> Classic garden-style waterfront dim sum, shrimp dumplings (Har Gow), and roast pigeon.</li></ul>
@@ -109,11 +113,11 @@ button:disabled{opacity:.65;cursor:wait}
 <section id="day2" class="panel">
 <div class="dayhead"><h2>Day 2 — Modern Guangzhou</h2><div class="route">09:00 Zhujiang New Town → 09:30 Huacheng Square → 10:30–12:30 Guangdong Museum → 13:00 lunch → 14:00 Haixinsha → 16:30 Canton Tower → sunset → 19:30+ Pearl River Cruise</div></div>
 <div id="day2-custom-container"></div>
-<div class="card"><div class="row"><input class="check" id="chk_day2_1" type="checkbox"><img class="card-thumb" src="9.jpg" alt="Zhujiang New Town"><div><a class="place" onclick="openModal('zhujiang')">1. Zhujiang New Town + Huacheng Square 🖼️</a><div class="meta">Modern central plaza and stunning skyscraper skyline views.<br><span class="badge">Transport: Metro</span><span class="badge">Free</span><span class="badge">Allow: 1–1.5 h</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day2_2" type="checkbox"><img class="card-thumb" src="10.jpg" alt="Guangdong Museum"><div><a class="place" onclick="openModal('museum')">2. Guangdong Museum 🖼️</a><div class="meta">Striking lacquer-box shaped building with rich regional history exhibits.<br><span class="badge">Transport: Walk</span><span class="badge">Free (Reserve)</span><span class="badge">Allow: 1.5–2 h</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day2_3" type="checkbox"><img class="card-thumb" src="11.jpg" alt="Haixinsha Park"><div><a class="place" onclick="openModal('haixinsha')">3. Haixinsha Asian Games Park 🖼️</a><div class="meta">Island park offer unblocked views of Canton Tower & Haixin Pedestrian Bridge.<br><span class="badge">Transport: Walk</span><span class="badge">Free</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day2_4" type="checkbox"><img class="card-thumb" src="12.jpg" alt="Canton Tower"><div><a class="place" onclick="openModal('tower')">4. Canton Tower 🖼️</a><div class="meta">Iconic 600m slim tower; best visited around sunset and early night.<br><span class="badge">Transport: Walk/APM</span><span class="badge">Ticket varies</span><span class="badge">Allow: 1.5–3 h</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day2_5" type="checkbox"><img class="card-thumb" src="13.jpg" alt="Pearl River Night Cruise"><div><a class="place" onclick="openModal('cruise')">5. Pearl River Night Cruise 🖼️</a><div class="meta">Relaxing boat ride passing illuminated bridges and Guangzhou CBD skyline.<br><span class="badge">Transport: Walk/Taxi to Pier</span><span class="badge">~60–80 min</span><span class="badge">~¥60–190</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day2_1" type="checkbox"><img class="card-thumb" src="images/9.jpg" alt="Zhujiang New Town"><div><a class="place" onclick="openModal('zhujiang')">1. Zhujiang New Town + Huacheng Square 🖼️</a><div class="meta">Modern central plaza and stunning skyscraper skyline views.<br><span class="badge">Transport: Metro</span><span class="badge">Free</span><span class="badge">Allow: 1–1.5 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day2_2" type="checkbox"><img class="card-thumb" src="images/10.jpg" alt="Guangdong Museum"><div><a class="place" onclick="openModal('museum')">2. Guangdong Museum 🖼️</a><div class="meta">Striking lacquer-box shaped building with rich regional history exhibits.<br><span class="badge">Transport: Walk</span><span class="badge">Free (Reserve)</span><span class="badge">Allow: 1.5–2 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day2_3" type="checkbox"><img class="card-thumb" src="images/11.jpg" alt="Haixinsha Park"><div><a class="place" onclick="openModal('haixinsha')">3. Haixinsha Asian Games Park 🖼️</a><div class="meta">Island park offer unblocked views of Canton Tower & Haixin Pedestrian Bridge.<br><span class="badge">Transport: Walk</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day2_4" type="checkbox"><img class="card-thumb" src="images/12.jpg" alt="Canton Tower"><div><a class="place" onclick="openModal('tower')">4. Canton Tower 🖼️</a><div class="meta">Iconic 600m slim tower; best visited around sunset and early night.<br><span class="badge">Transport: Walk/APM</span><span class="badge">Ticket varies</span><span class="badge">Allow: 1.5–3 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day2_5" type="checkbox"><img class="card-thumb" src="images/13.jpg" alt="Pearl River Night Cruise"><div><a class="place" onclick="openModal('cruise')">5. Pearl River Night Cruise 🖼️</a><div class="meta">Relaxing boat ride passing illuminated bridges and Guangzhou CBD skyline.<br><span class="badge">Transport: Walk/Taxi to Pier</span><span class="badge">~60–80 min</span><span class="badge">~¥60–190</span></div></div></div></div>
 <div class="lunch-card">
 <h4>🍽️ Day 2 Lunch Recommendation (CBD / Modern Guangzhou)</h4>
 <ul><li><b>Recommended Spot:</b> <b>IFC Mall / CTF Finance Centre Food Halls</b> or <b>K11 Art Mall</b>.</li><li><b>What to try:</b> Modern upscale fusion dining, international cuisines, or premium cafe lunch options with air conditioning and skyline views.</li></ul>
@@ -124,11 +128,11 @@ button:disabled{opacity:.65;cursor:wait}
 <section id="day3" class="panel">
 <div class="dayhead"><h2>Day 3 — Beijing Road + Historic Dongshankou</h2><div class="route">08:30 Beijing Road → 09:00 Dafo Temple → 09:45 Sacred Heart → 11:00 transfer → 12:00 Baiyun Mountain OR Dongshankou arts district stroll</div></div>
 <div id="day3-custom-container"></div>
-<div class="card"><div class="row"><input class="check" id="chk_day3_1" type="checkbox"><img class="card-thumb" src="14.jpg" alt="Beijing Road"><div><a class="place" onclick="openModal('beijing')">1. Beijing Road 🖼️</a><div class="meta">Pedestrian shopping street featuring transparent glass panels showing ancient road layers.<br><span class="badge">Transport: Walk</span><span class="badge">Free</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day3_2" type="checkbox"><img class="card-thumb" src="15.jpg" alt="Dafo Temple"><div><a class="place" onclick="openModal('dafo')">2. Dafo Temple 🖼️</a><div class="meta">Grand multi-tier wooden temple nestled in Beijing Road (spectacular at night).<br><span class="badge">Transport: Walk</span><span class="badge">Free</span><span class="badge">Allow: 30–45 min</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day3_3" type="checkbox"><img class="card-thumb" src="16.jpg" alt="Sacred Heart Cathedral"><div><a class="place" onclick="openModal('sacred')">3. Sacred Heart Cathedral 🖼️</a><div class="meta">Stunning all-granite Gothic cathedral (Shishi).<br><span class="badge">Transport: Taxi/Metro</span><span class="badge">Free</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day3_4" type="checkbox"><img class="card-thumb" src="17.jpg" alt="Baiyun Mountain"><div><a class="place" onclick="openModal('baiyun')">4. Baiyun Mountain 🖼️</a><div class="meta">Lush scenic nature park offering cable cars and panoramic city views.<br><span class="badge">Transport: Taxi/Didi</span><span class="badge">Entrance ~¥5</span><span class="badge">Allow: 2–3 h</span></div></div></div></div>
-<div class="card"><div class="row"><input class="check" id="chk_day3_5" type="checkbox"><img class="card-thumb" src="18.jpg" alt="Dongshankou"><div><a class="place" onclick="openModal('dongshankou')">5. Dongshankou Art District 🖼️</a><div class="meta">Historic neighborhood featuring vintage 1920s Western-style villas, art galleries, and indie cafes.<br><span class="badge">Transport: Metro Line 1/6</span><span class="badge">Free</span><span class="badge">Allow: 2–3 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day3_1" type="checkbox"><img class="card-thumb" src="images/14.jpg" alt="Beijing Road"><div><a class="place" onclick="openModal('beijing')">1. Beijing Road 🖼️</a><div class="meta">Pedestrian shopping street featuring transparent glass panels showing ancient road layers.<br><span class="badge">Transport: Walk</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day3_2" type="checkbox"><img class="card-thumb" src="images/15.jpg" alt="Dafo Temple"><div><a class="place" onclick="openModal('dafo')">2. Dafo Temple 🖼️</a><div class="meta">Grand multi-tier wooden temple nestled in Beijing Road (spectacular at night).<br><span class="badge">Transport: Walk</span><span class="badge">Free</span><span class="badge">Allow: 30–45 min</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day3_3" type="checkbox"><img class="card-thumb" src="images/16.jpg" alt="Sacred Heart Cathedral"><div><a class="place" onclick="openModal('sacred')">3. Sacred Heart Cathedral 🖼️</a><div class="meta">Stunning all-granite Gothic cathedral (Shishi).<br><span class="badge">Transport: Taxi/Metro</span><span class="badge">Free</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day3_4" type="checkbox"><img class="card-thumb" src="images/17.jpg" alt="Baiyun Mountain"><div><a class="place" onclick="openModal('baiyun')">4. Baiyun Mountain 🖼️</a><div class="meta">Lush scenic nature park offering cable cars and panoramic city views.<br><span class="badge">Transport: Taxi/Didi</span><span class="badge">Entrance ~¥5</span><span class="badge">Allow: 2–3 h</span></div></div></div></div>
+<div class="card"><div class="row"><input class="check" id="chk_day3_5" type="checkbox"><img class="card-thumb" src="images/18.jpg" alt="Dongshankou"><div><a class="place" onclick="openModal('dongshankou')">5. Dongshankou Art District 🖼️</a><div class="meta">Historic neighborhood featuring vintage 1920s Western-style villas, art galleries, and indie cafes.<br><span class="badge">Transport: Metro Line 1/6</span><span class="badge">Free</span><span class="badge">Allow: 2–3 h</span></div></div></div></div>
 <div class="lunch-card">
 <h4>🍽️ Day 3 Lunch Recommendation (Beijing Road & Dongshankou)</h4>
 <ul><li><b>Recommended Spot:</b> Trendy independent coffee shops, bakeries, and fusion bistros tucked inside the historic <b>Dongshankou villas</b>, or classic local noodles around <b>Beijing Road</b>.</li></ul>
@@ -139,196 +143,334 @@ button:disabled{opacity:.65;cursor:wait}
 <!-- Expense Tracker -->
 <div class="expenses">
 <h3>💰 Expense Tracker</h3>
-<div class="small">Track your group spending here. Add, export, or clear expenses below.</div>
+<div class="small">Track your group spending here.</div>
 <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:10px">
 <input id="expenseName" type="text" placeholder="e.g. Dim Sum Lunch" style="flex:1;min-width:170px;padding:11px;border:1px solid #ccd3da;border-radius:8px">
 <input id="expenseAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Amount ¥" style="width:120px;padding:11px;border:1px solid #ccd3da;border-radius:8px">
 <select id="expenseDay" style="width:100px;padding:11px;border:1px solid #ccd3da;border-radius:8px"><option>Day 1</option><option>Day 2</option><option>Day 3</option></select>
 </div>
-<button type="button" class="action-btn csv-btn" id="btnAddExpense" style="display:block;margin-top:9px;width:100%;min-height:48px">＋ ADD EXPENSE</button>
+<button type="button" class="action-btn csv-btn" id="btnAddExpense" style="display:block;margin-top:9px;width:100%">＋ ADD EXPENSE</button>
 <div id="expenseError" style="color:#b42318;font-size:13px;margin-top:7px;min-height:18px"></div>
 <div id="expenseList"></div>
 <div class="total" style="font-size:24px;padding:8px 0">TOTAL: ¥<span id="total">0.00</span></div>
 <div class="btn-group">
-<button type="button" class="action-btn csv-btn" id="btnExportCSV">📊 Export Expenses (.CSV)</button>
-<button type="button" class="action-btn clear-btn" id="btnClearExpense">Clear Expenses</button>
+<button type="button" class="action-btn csv-btn" id="btnExportCSV" onclick="exportExpensesCSV(); return false;">📊 Export Expenses (.CSV)</button>
+<button type="button" class="action-btn clear-btn" id="btnClearExpense" onclick="clearExpenses(); return false;">Clear Expenses</button>
 </div>
 </div>
 <footer>Updated itinerary and guides for Guangzhou trip. Verify opening hours before visits.</footer>
 </main>
 </div>
+<div class="pdf-btn-container">
+</div>
 
 <!-- ATTRACTION MODALS -->
-<div id="modal_yuexiu" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="yuexiu">✕ Close</button><img class="modal-img" src="1.jpg" alt="Yuexiu Park"><h2>Yuexiu Park</h2><p>Guangzhou’s largest park featuring historical sites, Zhenhai Tower, and the famous Five Rams Sculpture.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Five Rams Sculpture, Zhenhai Tower (Guangzhou Museum), and the Ming Dynasty City Wall.</li><li><b>Tip:</b> Wear comfortable walking shoes as the park has rolling hills and steps leading up to Zhenhai Tower.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_yuexiu" class="modal-notes-area" placeholder="Type personal notes, meeting times, or reminders here..." oninput="saveNote('yuexiu')"></textarea></div></div>
+<div id="modal_yuexiu" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('yuexiu')">✕ Close</button><img class="modal-img" src="images/1.jpg" alt="Yuexiu Park"><h2>Yuexiu Park</h2><p>Guangzhou’s largest park featuring historical sites, Zhenhai Tower, and the famous Five Rams Sculpture.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Five Rams Sculpture, Zhenhai Tower (Guangzhou Museum), and the Ming Dynasty City Wall.</li><li><b>Tip:</b> Wear comfortable walking shoes as the park has rolling hills and steps leading up to Zhenhai Tower.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_yuexiu" class="modal-notes-area" placeholder="Type personal notes, meeting times, or reminders here..." oninput="saveNote('yuexiu')"></textarea></div></div>
 
-<div id="modal_nanyue" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="nanyue">✕ Close</button><img class="modal-img" src="2.jpg" alt="Nanyue King Museum"><h2>Nanyue King Museum</h2><p>Built over the original 2,000-year-old tomb of King Zhao Mo featuring incredible jade artifacts.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> The authentic subterranean tomb chamber and the famous Silk Jade Burial Suit.</li><li><b>Tip:</b> Audio guides are available at the entrance; allow extra time if you love history and archaeology.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_nanyue" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('nanyue')"></textarea></div></div>
+<div id="modal_nanyue" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('nanyue')">✕ Close</button><img class="modal-img" src="images/2.jpg" alt="Nanyue King Museum"><h2>Nanyue King Museum</h2><p>Built over the original 2,000-year-old tomb of King Zhao Mo featuring incredible jade artifacts.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> The authentic subterranean tomb chamber and the famous Silk Jade Burial Suit.</li><li><b>Tip:</b> Audio guides are available at the entrance; allow extra time if you love history and archaeology.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_nanyue" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('nanyue')"></textarea></div></div>
 
-<div id="modal_liurong" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="liurong">✕ Close</button><img class="modal-img" src="3.jpg" alt="Temple of the Six Banyan Trees"><h2>Temple of the Six Banyan Trees</h2><p>Ancient Buddhist temple established in 537 AD featuring the towering Flower Pagoda.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> The multi-colored 57-meter Flower Pagoda and the grand bronze Buddha statues.</li><li><b>Tip:</b> Maintain a quiet and respectful demeanor as this is an active place of worship.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_liurong" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('liurong')"></textarea></div></div>
+<div id="modal_liurong" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('liurong')">✕ Close</button><img class="modal-img" src="images/3.jpg" alt="Temple of the Six Banyan Trees"><h2>Temple of the Six Banyan Trees</h2><p>Ancient Buddhist temple established in 537 AD featuring the towering Flower Pagoda.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> The multi-colored 57-meter Flower Pagoda and the grand bronze Buddha statues.</li><li><b>Tip:</b> Maintain a quiet and respectful demeanor as this is an active place of worship.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_liurong" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('liurong')"></textarea></div></div>
 
-<div id="modal_chen" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="chen">✕ Close</button><img class="modal-img" src="4.jpg" alt="Chen Clan Ancestral Hall"><h2>Chen Clan Ancestral Hall</h2><p>Masterpiece of Cantonese wood carving, pottery, and architectural artwork built in 1894.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Intricate roof ridge pottery sculptures and exquisite wood-carved panels depicting historical tales.</li><li><b>Tip:</b> Photography is allowed in courtyards; check individual exhibition halls for flash rules.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_chen" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('chen')"></textarea></div></div>
+<div id="modal_chen" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('chen')">✕ Close</button><img class="modal-img" src="images/4.jpg" alt="Chen Clan Ancestral Hall"><h2>Chen Clan Ancestral Hall</h2><p>Masterpiece of Cantonese wood carving, pottery, and architectural artwork built in 1894.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Intricate roof ridge pottery sculptures and exquisite wood-carved panels depicting historical tales.</li><li><b>Tip:</b> Photography is allowed in courtyards; check individual exhibition halls for flash rules.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_chen" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('chen')"></textarea></div></div>
 
-<div id="modal_yongqing" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="yongqing">✕ Close</button><img class="modal-img" src="5.jpg" alt="Yongqing Fang"><h2>Yongqing Fang</h2><p>Restored cultural quarter with Bruce Lee’s former residence, opera museums, and trendy cafes.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Bruce Lee Ancestral House, Cantonese Opera Art Museum, and the moon bridge path.</li><li><b>Tip:</b> Highly picturesque at dusk when traditional lanterns begin to light up the alleyways.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_yongqing" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('yongqing')"></textarea></div></div>
+<div id="modal_yongqing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('yongqing')">✕ Close</button><img class="modal-img" src="images/5.jpg" alt="Yongqing Fang"><h2>Yongqing Fang</h2><p>Restored cultural quarter with Bruce Lee’s former residence, opera museums, and trendy cafes.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Bruce Lee Ancestral House, Cantonese Opera Art Museum, and the moon bridge path.</li><li><b>Tip:</b> Highly picturesque at dusk when traditional lanterns begin to light up the alleyways.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_yongqing" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('yongqing')"></textarea></div></div>
 
-<div id="modal_pantang" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="pantang">✕ Close</button><img class="modal-img" src="6.jpg" alt="Pantang Ancient Village"><h2>Pantang Ancient Village</h2><p>Historic village area next to Liwan Lake filled with old water-town vibes.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Liwan Lake pavilions and traditional Lingnan style courtyard houses.</li><li><b>Tip:</b> Great quiet spot to escape the denser city crowds for a relaxing lakeside walk.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_pantang" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('pantang')"></textarea></div></div>
+<div id="modal_pantang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('pantang')">✕ Close</button><img class="modal-img" src="images/6.jpg" alt="Pantang Ancient Village"><h2>Pantang Ancient Village</h2><p>Historic village area next to Liwan Lake filled with old water-town vibes.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Liwan Lake pavilions and traditional Lingnan style courtyard houses.</li><li><b>Tip:</b> Great quiet spot to escape the denser city crowds for a relaxing lakeside walk.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_pantang" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('pantang')"></textarea></div></div>
 
-<div id="modal_shangxiajiu" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="shangxiajiu">✕ Close</button><img class="modal-img" src="7.jpg" alt="Shangxiajiu Pedestrian Street"><h2>Shangxiajiu Pedestrian Street</h2><p>Bustling commercial street featuring traditional Qilou (arcade) architecture.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Historic arcade storefronts and bustling local pastry shops.</li><li><b>Tip:</b> Watch your belongings closely as this historic shopping street can get very crowded.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_shangxiajiu" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('shangxiajiu')"></textarea></div></div>
+<div id="modal_shangxiajiu" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('shangxiajiu')">✕ Close</button><img class="modal-img" src="images/7.jpg" alt="Shangxiajiu Pedestrian Street"><h2>Shangxiajiu Pedestrian Street</h2><p>Bustling commercial street featuring traditional Qilou (arcade) architecture.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Historic arcade storefronts and bustling local pastry shops.</li><li><b>Tip:</b> Watch your belongings closely as this historic shopping street can get very crowded.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_shangxiajiu" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('shangxiajiu')"></textarea></div></div>
 
-<div id="modal_shamian" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="shamian">✕ Close</button><img class="modal-img" src="8.jpg" alt="Shamian Island"><h2>Shamian Island</h2><p>A tranquil sandbank island lined with European colonial architecture, bronze statues, and gardens.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Our Lady of Lourdes Chapel, historic foreign concession buildings, and ancient banyan trees.</li><li><b>Tip:</b> Perfect area for leisurely afternoon strolls and photography away from heavy car traffic.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_shamian" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('shamian')"></textarea></div></div>
+<div id="modal_shamian" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('shamian')">✕ Close</button><img class="modal-img" src="images/8.jpg" alt="Shamian Island"><h2>Shamian Island</h2><p>A tranquil sandbank island lined with European colonial architecture, bronze statues, and gardens.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Our Lady of Lourdes Chapel, historic foreign concession buildings, and ancient banyan trees.</li><li><b>Tip:</b> Perfect area for leisurely afternoon strolls and photography away from heavy car traffic.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_shamian" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('shamian')"></textarea></div></div>
 
-<div id="modal_zhujiang" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="zhujiang">✕ Close</button><img class="modal-img" src="9.jpg" alt="Zhujiang New Town"><h2>Zhujiang New Town & Huacheng Square</h2><p>Guangzhou's modern financial center and sprawling central green park surrounded by skyscrapers.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Guangzhou Opera House, Guangdong Museum exterior, and unblocked views of Canton Tower.</li><li><b>Tip:</b> Visit around twilight to see the surrounding skyscrapers light up in synchrony.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_zhujiang" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('zhujiang')"></textarea></div></div>
+<div id="modal_zhujiang" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('zhujiang')">✕ Close</button><img class="modal-img" src="images/9.jpg" alt="Zhujiang New Town"><h2>Zhujiang New Town & Huacheng Square</h2><p>Guangzhou's modern financial center and sprawling central green park surrounded by skyscrapers.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Guangzhou Opera House, Guangdong Museum exterior, and unblocked views of Canton Tower.</li><li><b>Tip:</b> Visit around twilight to see the surrounding skyscrapers light up in synchrony.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_zhujiang" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('zhujiang')"></textarea></div></div>
 
-<div id="modal_museum" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="museum">✕ Close</button><img class="modal-img" src="10.jpg" alt="Guangdong Museum"><h2>Guangdong Museum</h2><p>Modern museum shaped like an ornate lacquer box housing over 160,000 artifacts.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Lingnan historical artifacts, wood carving exhibits, and nature galleries.</li><li><b>Tip:</b> Advance online reservation is required; bring your passport for entry scanning.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_museum" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('museum')"></textarea></div></div>
+<div id="modal_museum" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('museum')">✕ Close</button><img class="modal-img" src="images/10.jpg" alt="Guangdong Museum"><h2>Guangdong Museum</h2><p>Modern museum shaped like an ornate lacquer box housing over 160,000 artifacts.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Lingnan historical artifacts, wood carving exhibits, and nature galleries.</li><li><b>Tip:</b> Advance online reservation is required; bring your passport for entry scanning.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_museum" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('museum')"></textarea></div></div>
 
-<div id="modal_haixinsha" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="haixinsha">✕ Close</button><img class="modal-img" src="11.jpg" alt="Haixinsha Park"><h2>Haixinsha Asian Games Park</h2><p>Venue for the 2010 Asian Games Opening Ceremony offering unobstructed views of Canton Tower.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Haixin Pedestrian Bridge connecting to Ersha Island and wide riverfront boardwalks.</li><li><b>Tip:</b> Excellent vantage point for taking group photos with Canton Tower in the background.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_haixinsha" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('haixinsha')"></textarea></div></div>
+<div id="modal_haixinsha" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('haixinsha')">✕ Close</button><img class="modal-img" src="images/11.jpg" alt="Haixinsha Park"><h2>Haixinsha Asian Games Park</h2><p>Venue for the 2010 Asian Games Opening Ceremony offering unobstructed views of Canton Tower.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Haixin Pedestrian Bridge connecting to Ersha Island and wide riverfront boardwalks.</li><li><b>Tip:</b> Excellent vantage point for taking group photos with Canton Tower in the background.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_haixinsha" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('haixinsha')"></textarea></div></div>
 
-<div id="modal_tower" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="tower">✕ Close</button><img class="modal-img" src="12.jpg" alt="Canton Tower"><h2>Canton Tower</h2><p>600-meter iconic TV and observation tower with sky drops, bubble trams, and panoramic views.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Bubble Tram (highest horizontal Ferris wheel) and outdoor observation decks.</li><li><b>Tip:</b> Book tickets in advance online if you plan to go up to the top observation deck.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_tower" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('tower')"></textarea></div></div>
+<div id="modal_tower" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('tower')">✕ Close</button><img class="modal-img" src="images/12.jpg" alt="Canton Tower"><h2>Canton Tower</h2><p>600-meter iconic TV and observation tower with sky drops, bubble trams, and panoramic views.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Bubble Tram (highest horizontal Ferris wheel) and outdoor observation decks.</li><li><b>Tip:</b> Book tickets in advance online if you plan to go up to the top observation deck.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_tower" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('tower')"></textarea></div></div>
 
-<div id="modal_cruise" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="cruise">✕ Close</button><img class="modal-img" src="13.jpg" alt="Pearl River Night Cruise"><h2>Pearl River Night Cruise</h2><p>Relaxing night cruise showing off the lit bridges and skyline of Guangzhou.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Illuminated bridges (Haizhu Bridge, Liede Bridge) and glowing CBD towers.</li><li><b>Tip:</b> Arrive at the pier 20–30 minutes before your scheduled boarding time.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_cruise" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('cruise')"></textarea></div></div>
+<div id="modal_cruise" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('cruise')">✕ Close</button><img class="modal-img" src="images/13.jpg" alt="Pearl River Night Cruise"><h2>Pearl River Night Cruise</h2><p>Relaxing night cruise showing off the lit bridges and skyline of Guangzhou.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Illuminated bridges (Haizhu Bridge, Liede Bridge) and glowing CBD towers.</li><li><b>Tip:</b> Arrive at the pier 20–30 minutes before your scheduled boarding time.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_cruise" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('cruise')"></textarea></div></div>
 
-<div id="modal_beijing" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="beijing">✕ Close</button><img class="modal-img" src="14.jpg" alt="Beijing Road"><h2>Beijing Road Pedestrian Street</h2><p>Historic shopping hub featuring transparent glass walkway windows showing ancient underground road layers.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Glass-covered archaeological stratum exhibition site right on the walking street.</li><li><b>Tip:</b> Lively shopping district with plenty of street food options open late into the evening.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_beijing" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('beijing')"></textarea></div></div>
+<div id="modal_beijing" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('beijing')">✕ Close</button><img class="modal-img" src="images/14.jpg" alt="Beijing Road"><h2>Beijing Road Pedestrian Street</h2><p>Historic shopping hub featuring transparent glass walkway windows showing ancient underground road layers.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Glass-covered archaeological stratum exhibition site right on the walking street.</li><li><b>Tip:</b> Lively shopping district with plenty of street food options open late into the evening.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_beijing" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('beijing')"></textarea></div></div>
 
-<div id="modal_dafo" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="dafo">✕ Close</button><img class="modal-img" src="15.jpg" alt="Dafo Temple (Great Buddha Temple)"><h2>Dafo Temple (Great Buddha Temple)</h2><p>Magnificent multi-level Buddhist temple tucked right behind the bustling Beijing Road shopping district.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Multi-tiered glowing temple exterior illuminated at night against modern office towers.</li><li><b>Tip:</b> Free entry; visiting after dark offers the most dramatic photographic lighting.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_dafo" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('dafo')"></textarea></div></div>
+<div id="modal_dafo" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('dafo')">✕ Close</button><img class="modal-img" src="images/15.jpg" alt="Dafo Temple (Great Buddha Temple)"><h2>Dafo Temple (Great Buddha Temple)</h2><p>Magnificent multi-level Buddhist temple tucked right behind the bustling Beijing Road shopping district.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Multi-tiered glowing temple exterior illuminated at night against modern office towers.</li><li><b>Tip:</b> Free entry; visiting after dark offers the most dramatic photographic lighting.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_dafo" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('dafo')"></textarea></div></div>
 
-<div id="modal_sacred" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="sacred">✕ Close</button><img class="modal-img" src="16.jpg" alt="Sacred Heart Cathedral (Shishi)"><h2>Sacred Heart Cathedral (Shishi)</h2><p>A breathtaking 19th-century Gothic Revival cathedral built entirely out of granite stone.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Soaring vaulted ceilings, twin stone spires, and stunning stained glass windows.</li><li><b>Tip:</b> Check mass schedules if you wish to see the interior during services; dress respectfully.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_sacred" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('sacred')"></textarea></div></div>
+<div id="modal_sacred" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('sacred')">✕ Close</button><img class="modal-img" src="images/16.jpg" alt="Sacred Heart Cathedral (Shishi)"><h2>Sacred Heart Cathedral (Shishi)</h2><p>A breathtaking 19th-century Gothic Revival cathedral built entirely out of granite stone.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Soaring vaulted ceilings, twin stone spires, and stunning stained glass windows.</li><li><b>Tip:</b> Check mass schedules if you wish to see the interior during services; dress respectfully.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_sacred" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('sacred')"></textarea></div></div>
 
-<div id="modal_baiyun" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="baiyun">✕ Close</button><img class="modal-img" src="17.jpg" alt="Baiyun Mountain"><h2>Baiyun Mountain</h2><p>Lush scenic nature park offering cable cars and panoramic city views.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Moxing Ridge (highest peak) and cable car rides over green forest canopy.</li><li><b>Tip:</b> Great morning spot before afternoon activities; wear light layers.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_baiyun" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('baiyun')"></textarea></div></div>
+<div id="modal_baiyun" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('baiyun')">✕ Close</button><img class="modal-img" src="images/17.jpg" alt="Baiyun Mountain (White Cloud Mountain)"><h2>Baiyun Mountain (White Cloud Mountain)</h2><p>A sprawling scenic mountain range north of the city offering lush green trails and panoramic city views.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Moxing Peak (highest point) and cable car rides overlooking the city skyline.</li><li><b>Tip:</b> Wear comfortable hiking shoes and bring water if you plan to walk up the mountain trails.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_baiyun" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('baiyun')"></textarea></div></div>
 
-<div id="modal_dongshankou" class="modal"><div class="modalbox"><button type="button" class="close-btn" data-modal="dongshankou">✕ Close</button><img class="modal-img" src="18.jpg" alt="Dongshankou"><h2>Dongshankou Art District</h2><p>Historic neighborhood featuring vintage 1920s Western-style villas, art galleries, and indie cafes.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Historic Western-Chinese hybrid mansions and creative design boutiques.</li><li><b>Tip:</b> Favorite hangout spot for local youth and coffee lovers.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_dongshankou" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('dongshankou')"></textarea></div></div>
+<div id="modal_dongshankou" class="modal"><div class="modalbox"><button type="button" class="close-btn" onclick="closeModal('dongshankou')">✕ Close</button><img class="modal-img" src="images/18.jpg" alt="Dongshankou Art District"><h2>Dongshankou Art District</h2><p>A charming historic district featuring preserved 1920s Western-style villas, independent boutiques, art galleries, and hip cafes.</p><div class="modal-tip-box"><h4>🔍 Verified Sightseeing & Travel Tips:</h4><ul><li><b>Must-See:</b> Peiyuan Street villas, local creative design shops, and historic red-brick courtyard houses.</li><li><b>Tip:</b> Great neighborhood for photography and relaxing afternoon coffee hopping.</li></ul></div><label><b>✍️ My Custom Notes:</b></label><textarea id="note_dongshankou" class="modal-notes-area" placeholder="Type personal notes here..." oninput="saveNote('dongshankou')"></textarea></div></div>
 
+<!-- Firebase shared trip sync -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<!-- JavaScript Logic with Explicit Event Listeners -->
 <script>
-function openModal(id) {
-  const m = document.getElementById('modal_' + id);
-  if (m) m.classList.add('active');
+const firebaseConfig = {
+  apiKey: "AIzaSyDBxjJjKKfZ6rIJg-lb6vaOnSjl-_T3Egc",
+  authDomain: "guangzhou-trip.firebaseapp.com",
+  projectId: "guangzhou-trip",
+  storageBucket: "guangzhou-trip.firebasestorage.app",
+  messagingSenderId: "238744229877",
+  appId: "1:238744229877:web:3ab69ebe61117ae3b7f2bc"
+};
+let db = null;
+let sharedState = null;
+let sharedExpenses = null;
+let applyingRemote = false;
+let firebaseReady = false;
+let knownExpenseDocs = new Map();
+function setSyncStatus(message, ok=false) {
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  el.textContent = message;
+  el.style.background = ok ? '#e8f8ee' : '#fff8df';
+  el.style.color = ok ? '#17663a' : '#674d00';
+}
+function startSharedSync() {
+  try {
+    if (!window.firebase) throw new Error('Firebase SDK did not load. Check your internet connection.');
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    firebase.auth().signInAnonymously().catch(err => {
+      console.error('Anonymous sign-in failed:', err);
+      setSyncStatus('Could not sign in automatically. Check Firebase Authentication settings.');
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user || firebaseReady) return;
+      firebaseReady = true;
+      const trip = db.collection('trips').doc('guangzhou-trip');
+      sharedState = trip.collection('state');
+      sharedExpenses = trip.collection('expenses');
+      setSyncStatus('Connected — changes sync across phones.', true);
+      sharedState.onSnapshot(snapshot => {
+        applyingRemote = true;
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          if (doc.id.startsWith('note_')) {
+            const el = document.getElementById(doc.id);
+            if (el && el.value !== (d.value || '')) el.value = d.value || '';
+          } else if (doc.id.startsWith('check_')) {
+            const el = document.getElementById(doc.id.slice(6));
+            if (el) el.checked = !!d.value;
+          }
+        });
+        applyingRemote = false;
+      }, err => { console.error(err); setSyncStatus('Sync error — check Firestore rules and connection.'); });
+      sharedExpenses.onSnapshot(snapshot => {
+        knownExpenseDocs = new Map();
+        expenses = snapshot.docs.map(doc => {
+          const d = doc.data();
+          knownExpenseDocs.set(doc.id, true);
+          return {id: doc.id, name: d.name || '', amount: d.amount ?? 0, day: d.day || 'Day 1'};
+        });
+        renderExpenses();
+      }, err => { console.error(err); setSyncStatus('Expense sync error — check Firestore rules.'); });
+    });
+  } catch (err) {
+    console.error('Firebase setup error:', err);
+    setSyncStatus('Could not connect. Check the Firebase configuration and internet connection.');
+  }
 }
 
-function closeModal(id) {
-  const m = document.getElementById('modal_' + id);
-  if (m) m.classList.remove('active');
+function openModal(id){
+  const modal = document.getElementById(`modal_${id}`);
+  if(modal) modal.classList.add('active');
 }
 
-function saveNote(id) {
-  const ta = document.getElementById('note_' + id);
-  if (ta) localStorage.setItem('note_' + id, ta.value);
+function closeModal(id){
+  const modal = document.getElementById(`modal_${id}`);
+  if(modal) modal.classList.remove('active');
 }
 
-// Expense Management
-let expenses = JSON.parse(localStorage.getItem('guangzhou_expenses')) || [];
+function addCustomTour(){
+  const day = document.getElementById('tourDay').value;
+  const title = document.getElementById('tourTitle').value.trim();
+  const note = document.getElementById('tourNote').value.trim();
+  if(!title){ alert('Please enter a tour name.'); return; }
+  
+  const container = document.getElementById(`day${day}-custom-container`);
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="row">
+      <input class="check" type="checkbox">
+      <div style="flex:1">
+        <div style="font-size:18px;font-weight:bold;color:#27ae60">★ ${title}</div>
+        <div class="meta">${note || 'Custom added stop'}<br><span class="badge" style="background:#e8f8f5;color:#27ae60">Custom Stop</span></div>
+      </div>
+      <button type="button" class="del-card" style="background:none;border:0;color:#e74c3c;font-weight:bold;cursor:pointer;font-size:16px">✕</button>
+    </div>
+  `;
+  card.querySelector('.del-card').addEventListener('click', function(){
+    card.remove();
+  });
+  container.appendChild(card);
+  document.getElementById('tourTitle').value = '';
+  document.getElementById('tourNote').value = '';
+}
 
-function renderExpenses() {
+// Guard storage access: some mobile/private browser modes block localStorage.
+function safeStorageGet(key){ try { return localStorage.getItem(key); } catch(e) { return null; } }
+function safeStorageSet(key, value){ try { localStorage.setItem(key, value); } catch(e) { /* Keep current session usable. */ } }
+let expenses = [];
+
+function renderExpenses(){
   const list = document.getElementById('expenseList');
-  const totalSpan = document.getElementById('total');
-  if (!list || !totalSpan) return;
   list.innerHTML = '';
   let total = 0;
-
-  expenses.forEach((ex, idx) => {
-    total += parseFloat(ex.amount) || 0;
+  expenses.forEach((exp, index) => {
+    total += Number(exp.amount);
     const div = document.createElement('div');
     div.className = 'exp';
-    div.innerHTML = `<span><b>${ex.name}</b> <span class="small">(${ex.day})</span></span> <span>¥${parseFloat(ex.amount).toFixed(2)} <button type="button" class="del-exp-btn" data-index="${idx}" style="background:none;border:none;color:#e74c3c;cursor:pointer;font-weight:bold;margin-left:5px;padding:5px;">✕</button></span>`;
+    div.innerHTML = `
+      <div><b>${exp.name}</b> <span class="small">(${exp.day})</span></div>
+      <div>¥${Number(exp.amount).toFixed(2)} <button type="button" class="del-exp" data-index="${index}" style="background:none;border:0;color:#e74c3c;cursor:pointer;font-weight:bold;margin-left:8px">✕</button></div>
+    `;
     list.appendChild(div);
   });
-  totalSpan.innerText = total.toFixed(2);
-  localStorage.setItem('guangzhou_expenses', JSON.stringify(expenses));
-
-  // Attach delete handlers for dynamically generated buttons
-  document.querySelectorAll('.del-exp-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const idx = parseInt(e.currentTarget.getAttribute('data-index'), 10);
-      deleteExpense(idx);
+  
+  // Attach clean delete listeners for mobile touch
+  list.querySelectorAll('.del-exp').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const idx = Number(this.getAttribute('data-index'));
+      const exp = expenses[idx];
+      if (exp && sharedExpenses && exp.id) sharedExpenses.doc(exp.id).delete().catch(err => { console.error(err); alert('Could not delete expense. Check your connection.'); });
+      else { expenses.splice(idx, 1); renderExpenses(); }
     });
   });
+
+  document.getElementById('total').innerText = total.toFixed(2);
+  // Shared expenses are stored in Firestore; no device-only save is needed.
 }
 
-function addExpense() {
-  const nameEl = document.getElementById('expenseName');
-  const amtEl = document.getElementById('expenseAmount');
-  const dayEl = document.getElementById('expenseDay');
+function addExpense(){
+  const name = document.getElementById('expenseName').value.trim();
+  const amount = document.getElementById('expenseAmount').value;
+  const day = document.getElementById('expenseDay').value;
   const err = document.getElementById('expenseError');
-  if (!nameEl || !amtEl || !dayEl || !err) return;
-
-  const name = nameEl.value.trim();
-  const amount = amtEl.value;
-  const day = dayEl.value;
-
-  if (!name || !amount || isNaN(amount) || parseFloat(amount) <= 0) {
+  
+  if(!name || !amount || amount <= 0){
     err.innerText = 'Please enter a valid expense name and amount.';
     return;
   }
   err.innerText = '';
-  expenses.push({ name, amount: parseFloat(amount), day });
-  nameEl.value = '';
-  amtEl.value = '';
-  renderExpenses();
+  if (!sharedExpenses || !firebaseReady) { err.innerText = 'Still connecting to the shared trip. Please try again in a moment.'; return; }
+  sharedExpenses.add({name, amount: Number(amount), day, createdAt: firebase.firestore.FieldValue.serverTimestamp()}).then(() => {
+    document.getElementById('expenseName').value = '';
+    document.getElementById('expenseAmount').value = '';
+    err.innerText = '';
+  }).catch(e => { console.error(e); err.innerText = 'Could not save expense. Check your connection.'; });
 }
 
-function deleteExpense(idx) {
-  expenses.splice(idx, 1);
-  renderExpenses();
-}
-
-function clearExpenses() {
-  if (confirm('Are you sure you want to clear all expenses?')) {
-    expenses = [];
-    renderExpenses();
-  }
-}
-
-function exportExpensesCSV() {
-  if (expenses.length === 0) {
-    alert('No expenses to export.');
+let clearArmed = false;
+let clearResetTimer = null;
+function clearExpenses(){
+  const button = document.getElementById('btnClearExpense');
+  // Two-tap confirmation works in mobile browsers that block confirm() dialogs.
+  if (!clearArmed) {
+    clearArmed = true;
+    const oldText = button.dataset.originalText || button.textContent;
+    button.dataset.originalText = oldText;
+    button.textContent = 'Tap again to clear';
+    if (clearResetTimer) clearTimeout(clearResetTimer);
+    clearResetTimer = setTimeout(() => {
+      clearArmed = false;
+      button.textContent = button.dataset.originalText || 'Clear Expenses';
+    }, 3500);
     return;
   }
-  let csv = 'Name,Amount (CNY),Day\n';
-  expenses.forEach(ex => {
-    csv += `"${ex.name}",${ex.amount},"${ex.day}"\n`;
-  });
-  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'guangzhou_expenses.csv';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }, 100);
+  clearArmed = false;
+  if (clearResetTimer) clearTimeout(clearResetTimer);
+  button.textContent = button.dataset.originalText || 'Clear Expenses';
+  if (!sharedExpenses || !firebaseReady) { alert('Still connecting. Please try again in a moment.'); return; }
+  const deletes = expenses.filter(e => e.id).map(e => sharedExpenses.doc(e.id).delete());
+  Promise.all(deletes).catch(e => { console.error(e); alert('Some expenses could not be cleared.'); });
 }
 
-// Event Listeners setup for robust mobile touch & click support
-document.addEventListener('DOMContentLoaded', () => {
+function exportExpensesCSV(){
+  if (expenses.length === 0) { alert('No expenses to export. Add an expense first.'); return; }
+  const escapeCSV = value => '"' + String(value ?? '').replace(/"/g, '""') + '"';
+  let csv = 'Item,Amount (CNY),Day\r\n';
+  expenses.forEach(e => { csv += `${escapeCSV(e.name)},${escapeCSV(e.amount)},${escapeCSV(e.day)}\r\n`; });
+  const blob = new Blob(['\ufeff', csv], {type: 'text/csv;charset=utf-8;'});
+  const filename = 'guangzhou_trip_expenses.csv';
+  try {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.setAttribute('target', '_blank');
+    link.style.position = 'fixed';
+    link.style.left = '-9999px';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    // Keep the object URL alive so the visible fallback link still works on mobile.
+    // Keep a visible fallback link for browsers that ignore programmatic downloads.
+    showExportFallback(url, filename, 'If the CSV did not download, tap this link:');
+  } catch (err) {
+    console.error('CSV export failed:', err);
+    const dataUrl = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    showExportFallback(dataUrl, filename, 'Tap to open your CSV, then use your browser menu to save or share it:');
+  }
+}
+
+function showExportFallback(url, filename, message){
+  let box = document.getElementById('csvExportFallback');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'csvExportFallback';
+    box.style.cssText = 'margin-top:10px;padding:12px;background:#fff8df;border-radius:8px;overflow-wrap:anywhere';
+    document.getElementById('btnExportCSV').insertAdjacentElement('afterend', box);
+  }
+  box.innerHTML = '';
+  const text = document.createElement('div');
+  text.textContent = message;
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.textContent = 'Download guangzhou_trip_expenses.csv';
+  link.style.cssText = 'display:inline-block;margin-top:8px;padding:10px;background:#17202a;color:#fff;border-radius:7px';
+  box.append(text, link);
+}
+
+function saveNote(placeId){
+  const text = document.getElementById(`note_${placeId}`).value;
+  if (applyingRemote || !sharedState || !firebaseReady) return;
+  sharedState.doc(`note_${placeId}`).set({value:text, updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(err => { console.error(err); setSyncStatus('Could not save a note. Check your connection.'); });
+}
+
+function initializePageButtons(){
   renderExpenses();
-
-  // Load saved notes safely
-  document.querySelectorAll('.modal-notes-area').forEach(ta => {
-    const id = ta.id.replace('note_', '');
-    const saved = localStorage.getItem('note_' + id);
-    if (saved) ta.value = saved;
+  document.querySelectorAll('.check[id]').forEach(box => {
+    box.addEventListener('change', () => {
+      if (applyingRemote || !sharedState || !firebaseReady) return;
+      sharedState.doc(`check_${box.id}`).set({value:box.checked, updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).catch(err => { console.error(err); setSyncStatus('Could not save a checklist change. Check your connection.'); });
+    });
   });
-
-  // Use one click handler per button. Modern mobile browsers fire click reliably,
-  // and avoiding touchend prevents duplicate actions.
-  const bindClick = (id, handler) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('click', handler);
-    }
+  const handlers = {
+    btnAddTour: addCustomTour,
+    btnAddExpense: addExpense
   };
-
-  bindClick('btnAddExpense', addExpense);
-  bindClick('btnExportCSV', exportExpensesCSV);
-  bindClick('btnClearExpense', clearExpenses);
-
-  // Modal close button bindings
-  document.querySelectorAll('.close-btn').forEach(btn => {
-    const modalId = btn.getAttribute('data-modal');
-    if (modalId) {
-      const closeAction = () => closeModal(modalId);
-      btn.addEventListener('click', closeAction);
-    }
+  Object.entries(handlers).forEach(([id, handler]) => {
+    const button = document.getElementById(id);
+    if (!button || button.dataset.handlerAttached === 'yes') return;
+    button.dataset.handlerAttached = 'yes';
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      try { handler(); }
+      catch (err) { console.error('Button action failed:', id, err); alert('That action could not be completed. Please open this page in your browser and try again.'); }
+    });
   });
-});
+}
+startSharedSync();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializePageButtons, {once:true});
+} else {
+  initializePageButtons();
+}
 </script>
 </body>
 </html>
